@@ -1,7 +1,6 @@
 package com.github.enteraname74.mouthpieces.local.model
 
 import com.github.enteraname74.mouthpieces.domain.model.Mouthpiece
-import com.github.enteraname74.mouthpieces.domain.model.Saxophone
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -24,4 +23,5 @@ data class LocalMouthpiece(
             chamber = chamber.toChamber(),
             baffle = baffle.toBaffle(),
         )
+
 }

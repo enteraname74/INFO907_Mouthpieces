@@ -6,5 +6,5 @@ data class MainPageFilterState(
     val name: String = "",
 ) {
     fun toMouthpieceFilter(): MouthpieceFilter  =
-        MouthpieceFilter(name = name)
+        MouthpieceFilter(search = name)
 }
