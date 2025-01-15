@@ -39,7 +39,7 @@ class MainPageScreenModel(
         initialValue = MainPageState.Loading,
     )
 
-    fun updateNameQuery(query: String) {
+    fun updateSearchQuery(query: String) {
         _filterState.update {
             it.copy(name = query)
         }

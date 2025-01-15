@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
+import com.github.enteraname74.mouthpieces.app.feature.mainpage.composable.MainPageSearchBar
 import com.github.enteraname74.mouthpieces.app.feature.mainpage.state.MainPageFilterState
 import com.github.enteraname74.mouthpieces.app.feature.mainpage.state.MainPageState
 
@@ -27,7 +28,7 @@ class MainPageScreen : Screen {
         Screen(
             state = state,
             filterState = filterState,
-            onUpdateName = screenModel::updateNameQuery,
+            onUpdateSearch = screenModel::updateSearchQuery,
         )
     }
 
@@ -35,7 +36,7 @@ class MainPageScreen : Screen {
     private fun Screen(
         state: MainPageState,
         filterState: MainPageFilterState,
-        onUpdateName: (newName: String) -> Unit,
+        onUpdateSearch: (newSearch: String) -> Unit,
     ) {
         Surface {
             Column(
@@ -43,16 +44,7 @@ class MainPageScreen : Screen {
                     .fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                OutlinedTextField(
-                    value = filterState.name,
-                    onValueChange = onUpdateName,
-                    singleLine = true,
-                    label = {
-                        Text(
-                            text = "Name",
-                        )
-                    }
-                )
+                MainPageSearchBar(filterState, onUpdateSearch)
             }
         }
     }
