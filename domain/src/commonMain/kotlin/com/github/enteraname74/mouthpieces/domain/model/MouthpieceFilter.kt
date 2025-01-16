@@ -9,7 +9,26 @@ data class MouthpieceFilter(
     val baffle: Baffle? = null,
     val chamber: Chamber? = null,
 ) {
+
     private fun validateFromSearch(
+        mouthpiece: Mouthpiece,
+    ): Boolean =
+        search
+            .takeIf { it.isNotBlank() }
+            .validate { validatedSearch ->
+                validatedSearch
+                    .lowercase()
+                    .split(" ")
+                    .map { entry ->
+                        validateFromSearchEntry(
+                            mouthpiece = mouthpiece,
+                            search = entry.trim(),
+                        )
+                    }.all { it }
+            }
+
+
+    private fun validateFromSearchEntry(
         mouthpiece: Mouthpiece,
         search: String,
     ): Boolean =
@@ -32,16 +51,7 @@ data class MouthpieceFilter(
                 && chamber.validate { mouthpiece.chamber == it }
 
     fun validateMouthpiece(mouthpiece: Mouthpiece): Boolean {
-        val searchValidation = search
-            .takeIf { it.isNotBlank() }
-            .validate{
-                validateFromSearch(
-                    mouthpiece = mouthpiece,
-                    search = search.lowercase(),
-                )
-            }
-
-        return searchValidation && validateFromAttributes(mouthpiece)
+        return validateFromSearch(mouthpiece) && validateFromAttributes(mouthpiece)
     }
 }
 
