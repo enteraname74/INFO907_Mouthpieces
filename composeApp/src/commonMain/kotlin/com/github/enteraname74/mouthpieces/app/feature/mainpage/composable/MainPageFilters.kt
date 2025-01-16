@@ -1,8 +1,10 @@
 package com.github.enteraname74.mouthpieces.app.feature.mainpage.composable
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.unit.dp
 import com.github.enteraname74.mouthpieces.app.feature.mainpage.MainPageFilterListener
 import com.github.enteraname74.mouthpieces.app.feature.mainpage.state.MainPageFilterState
 import com.github.enteraname74.mouthpieces.domain.model.*
@@ -10,7 +12,10 @@ import com.github.enteraname74.mouthpieces.domain.model.*
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun MainPageFilters(filterState: MainPageFilterState, filterListener: MainPageFilterListener) {
-    FlowRow {
+    FlowRow(
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
         MainPageFilter(
             name = "Saxophone",
             entries = Saxophone.entries.map { it.value }.toList(),

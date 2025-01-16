@@ -1,15 +1,6 @@
 package com.github.enteraname74.mouthpieces.local.data
 
-import com.github.enteraname74.mouthpieces.domain.model.Genre
-import com.github.enteraname74.mouthpieces.domain.model.Mouthpiece
-import com.github.enteraname74.mouthpieces.domain.model.Saxophone
-import com.github.enteraname74.mouthpieces.local.model.LocalBaffle
-import com.github.enteraname74.mouthpieces.local.model.LocalChamber
-import com.github.enteraname74.mouthpieces.local.model.LocalGenre
-import com.github.enteraname74.mouthpieces.local.model.LocalMaterial
-import com.github.enteraname74.mouthpieces.local.model.LocalMouthpiece
-import com.github.enteraname74.mouthpieces.local.model.LocalOpening
-import com.github.enteraname74.mouthpieces.local.model.LocalSaxophone
+import com.github.enteraname74.mouthpieces.local.model.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.serialization.json.Json
@@ -60,7 +51,7 @@ class JsonParser {
                 add(
                     FlattenedData(
                         attributes = attributes,
-                        mouthpiecesNames = jsonElement.map { it.toString() },
+                        mouthpiecesNames = jsonElement.map { it.toString().removeSurrounding("\"", "\"") },
                     )
                 )
             }

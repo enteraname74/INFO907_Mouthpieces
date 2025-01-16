@@ -38,39 +38,39 @@ class MainPageScreenModel(
         }
     }
 
-    override fun updateSaxophone(newValue: String) {
+    override fun updateSaxophone(newValue: String?) {
         _filterState.update {
-            it.copy(saxophone = Saxophone.fromString(newValue))
+            it.copy(saxophone = newValue?.let { Saxophone.fromString(newValue) })
         }
     }
 
-    override fun updateGenre(newValue: String) {
+    override fun updateGenre(newValue: String?) {
         _filterState.update {
-            it.copy(genre = Genre.fromString(newValue))
+            it.copy(genre = newValue?.let { Genre.fromString(newValue) })
         }
     }
 
-    override fun updateMaterial(newValue: String) {
+    override fun updateMaterial(newValue: String?) {
         _filterState.update {
-            it.copy(material = Material.fromString(newValue))
+            it.copy(material = newValue?.let { Material.fromString(newValue) })
         }
     }
 
-    override fun updateOpening(newValue: String) {
+    override fun updateOpening(newValue: String?) {
         _filterState.update {
-            it.copy(opening = Opening.fromString(newValue))
+            it.copy(opening = newValue?.let { Opening.fromString(newValue) })
         }
     }
 
-    override fun updateBaffle(newValue: String) {
+    override fun updateBaffle(newValue: String?) {
         _filterState.update {
-            it.copy(baffle = Baffle.fromString(newValue))
+            it.copy(baffle = newValue?.let { Baffle.fromString(newValue) })
         }
     }
 
-    override fun updateChamber(newValue: String) {
+    override fun updateChamber(newValue: String?) {
         _filterState.update {
-            it.copy(chamber = Chamber.fromString(newValue))
+            it.copy(chamber = newValue?.let { Chamber.fromString(newValue) })
         }
     }
 }
