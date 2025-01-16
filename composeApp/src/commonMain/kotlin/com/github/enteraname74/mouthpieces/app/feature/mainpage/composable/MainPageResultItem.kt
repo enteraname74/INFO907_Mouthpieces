@@ -39,8 +39,8 @@ fun MainPageResultItem(
                 Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
                     Text("Saxophone : " + mouthpiece.saxophone.value)
                     Text("Genre : " + mouthpiece.genre.value)
-                    Text("Chamber : " + mouthpiece.chamber)
-                    Text("Baffle : " + mouthpiece.baffle)
+                    Text("Chamber : " + mouthpiece.chamber.value)
+                    Text("Baffle : " + mouthpiece.baffle.value)
                 }
             }
         }
