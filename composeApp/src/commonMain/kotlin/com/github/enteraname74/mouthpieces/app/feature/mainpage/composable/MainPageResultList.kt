@@ -11,7 +11,8 @@ import com.github.enteraname74.mouthpieces.domain.model.Mouthpiece
 
 @Composable
 fun MainPageResultList(
-    mouthpieces: List<Mouthpiece>
+    mouthpieces: List<Mouthpiece>,
+    onSelectMouthpiece: (Mouthpiece) -> Unit,
 ) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(minSize = 250.dp),
@@ -22,7 +23,10 @@ fun MainPageResultList(
         items(
             items = mouthpieces
         ) { mouthpiece ->
-            MainPageResultItem(mouthpiece)
+            MainPageResultItem(
+                mouthpiece = mouthpiece,
+                onClick = onSelectMouthpiece,
+            )
         }
     }
 }

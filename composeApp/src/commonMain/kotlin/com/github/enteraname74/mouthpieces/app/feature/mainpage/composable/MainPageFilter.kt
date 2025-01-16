@@ -113,7 +113,7 @@ private fun FilterButton(
                 overflow = TextOverflow.Ellipsis,
             )
             Text(
-                text = selectedValue.orEmpty(),
+                text = selectedValue ?: "--",
                 color = MenuDefaults.itemColors().textColor,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,

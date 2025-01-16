@@ -17,20 +17,29 @@ class MainPageScreenModel(
     )
     val filterState: StateFlow<MainPageFilterState> = _filterState.asStateFlow()
 
+    private val _selectedMouthpiece: MutableStateFlow<Mouthpiece?> = MutableStateFlow(null)
+
     @OptIn(ExperimentalCoroutinesApi::class)
     val state: StateFlow<MainPageState> = _filterState.flatMapLatest { filterState ->
         mouthpieceRepository.getMouthpieces(
             filter = filterState.toMouthpieceFilter()
-        ).mapLatest { mouthpieces ->
-            MainPageState.Data(
-                mouthpieces = mouthpieces,
-            )
+        ).flatMapLatest { mouthpieces ->
+            _selectedMouthpiece.mapLatest { selectedMouthpiece ->
+                MainPageState.Data(
+                    mouthpieces = mouthpieces,
+                    selectedMouthpiece = selectedMouthpiece,
+                )
+            }
         }
     }.stateIn(
         scope = screenModelScope,
         started = SharingStarted.Eagerly,
         initialValue = MainPageState.Loading,
     )
+
+    fun selectMouthpiece(mouthpiece: Mouthpiece?) {
+        _selectedMouthpiece.value = mouthpiece
+    }
 
     override fun updateSearchQuery(query: String) {
         _filterState.update {
