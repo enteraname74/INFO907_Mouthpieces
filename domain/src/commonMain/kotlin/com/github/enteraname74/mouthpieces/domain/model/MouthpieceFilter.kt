@@ -13,12 +13,13 @@ data class MouthpieceFilter(
         mouthpiece: Mouthpiece,
         search: String,
     ): Boolean =
-        mouthpiece.genre.value.contains(search)
-                || mouthpiece.material.value.contains(search)
-                || mouthpiece.saxophone.value.contains(search)
-                || mouthpiece.opening.value.contains(search)
-                || mouthpiece.baffle.value.contains(search)
-                || mouthpiece.chamber.value.contains(search)
+        mouthpiece.genre.value.lowercase().contains(search)
+                || mouthpiece.material.value.lowercase().contains(search)
+                || mouthpiece.saxophone.value.lowercase().contains(search)
+                || mouthpiece.opening.value.lowercase().contains(search)
+                || mouthpiece.baffle.value.lowercase().contains(search)
+                || mouthpiece.chamber.value.lowercase().contains(search)
+                || mouthpiece.name.lowercase().contains(search)
 
     private fun validateFromAttributes(
         mouthpiece: Mouthpiece
@@ -32,11 +33,11 @@ data class MouthpieceFilter(
 
     fun validateMouthpiece(mouthpiece: Mouthpiece): Boolean {
         val searchValidation = search
-            .takeIf { it.isNotEmpty() }
+            .takeIf { it.isNotBlank() }
             .validate{
                 validateFromSearch(
                     mouthpiece = mouthpiece,
-                    search = search,
+                    search = search.lowercase(),
                 )
             }
 

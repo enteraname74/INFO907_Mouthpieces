@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import com.github.enteraname74.mouthpieces.app.feature.mainpage.composable.MainPageFilter
+import com.github.enteraname74.mouthpieces.app.feature.mainpage.composable.MainPageResultList
 import com.github.enteraname74.mouthpieces.app.feature.mainpage.composable.MainPageSearchBar
 import com.github.enteraname74.mouthpieces.app.feature.mainpage.state.MainPageFilterState
 import com.github.enteraname74.mouthpieces.app.feature.mainpage.state.MainPageState
@@ -45,6 +46,16 @@ class MainPageScreen : Screen {
             ) {
                 MainPageSearchBar(filterState, onUpdateSearch)
                 MainPageFilter()
+                when(state) {
+                    is MainPageState.Data -> {
+                        MainPageResultList(
+                            mouthpieces = state.mouthpieces,
+                        )
+                    }
+                    MainPageState.Loading -> {
+                        /*no-op*/
+                    }
+                }
             }
         }
     }
