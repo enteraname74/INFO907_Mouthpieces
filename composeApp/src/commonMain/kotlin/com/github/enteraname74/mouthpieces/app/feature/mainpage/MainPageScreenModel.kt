@@ -2,23 +2,16 @@ package com.github.enteraname74.mouthpieces.app.feature.mainpage
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
-import cafe.adriel.voyager.core.registry.screenModule
 import com.github.enteraname74.mouthpieces.app.feature.mainpage.state.MainPageFilterState
 import com.github.enteraname74.mouthpieces.app.feature.mainpage.state.MainPageState
+import com.github.enteraname74.mouthpieces.domain.model.*
 import com.github.enteraname74.mouthpieces.domain.repository.MouthpieceRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.mapLatest
-import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.*
 
 class MainPageScreenModel(
     private val mouthpieceRepository: MouthpieceRepository,
-) : ScreenModel {
+) : ScreenModel, MainPageFilterListener {
     private val _filterState: MutableStateFlow<MainPageFilterState> = MutableStateFlow(
         MainPageFilterState()
     )
@@ -39,9 +32,45 @@ class MainPageScreenModel(
         initialValue = MainPageState.Loading,
     )
 
-    fun updateSearchQuery(query: String) {
+    override fun updateSearchQuery(query: String) {
         _filterState.update {
-            it.copy(name = query)
+            it.copy(search = query)
+        }
+    }
+
+    override fun updateSaxophone(newValue: String) {
+        _filterState.update {
+            it.copy(saxophone = Saxophone.fromString(newValue))
+        }
+    }
+
+    override fun updateGenre(newValue: String) {
+        _filterState.update {
+            it.copy(genre = Genre.fromString(newValue))
+        }
+    }
+
+    override fun updateMaterial(newValue: String) {
+        _filterState.update {
+            it.copy(material = Material.fromString(newValue))
+        }
+    }
+
+    override fun updateOpening(newValue: String) {
+        _filterState.update {
+            it.copy(opening = Opening.fromString(newValue))
+        }
+    }
+
+    override fun updateBaffle(newValue: String) {
+        _filterState.update {
+            it.copy(baffle = Baffle.fromString(newValue))
+        }
+    }
+
+    override fun updateChamber(newValue: String) {
+        _filterState.update {
+            it.copy(chamber = Chamber.fromString(newValue))
         }
     }
 }

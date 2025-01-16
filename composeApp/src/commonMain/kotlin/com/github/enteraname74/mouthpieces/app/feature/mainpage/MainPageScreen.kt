@@ -10,7 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
-import com.github.enteraname74.mouthpieces.app.feature.mainpage.composable.MainPageFilter
+import com.github.enteraname74.mouthpieces.app.feature.mainpage.composable.MainPageFilters
 import com.github.enteraname74.mouthpieces.app.feature.mainpage.composable.MainPageResultList
 import com.github.enteraname74.mouthpieces.app.feature.mainpage.composable.MainPageSearchBar
 import com.github.enteraname74.mouthpieces.app.feature.mainpage.state.MainPageFilterState
@@ -28,7 +28,7 @@ class MainPageScreen : Screen {
         Screen(
             state = state,
             filterState = filterState,
-            onUpdateSearch = screenModel::updateSearchQuery,
+            filterListener = screenModel,
         )
     }
 
@@ -36,7 +36,7 @@ class MainPageScreen : Screen {
     private fun Screen(
         state: MainPageState,
         filterState: MainPageFilterState,
-        onUpdateSearch: (newSearch: String) -> Unit,
+        filterListener: MainPageFilterListener,
     ) {
         Surface {
             Column(
@@ -44,14 +44,17 @@ class MainPageScreen : Screen {
                     .fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                MainPageSearchBar(filterState, onUpdateSearch)
-                MainPageFilter()
-                when(state) {
+                MainPageSearchBar(filterState, filterListener::updateSearchQuery)
+
+                MainPageFilters(filterState = filterState, filterListener = filterListener)
+
+                when (state) {
                     is MainPageState.Data -> {
                         MainPageResultList(
                             mouthpieces = state.mouthpieces,
                         )
                     }
+
                     MainPageState.Loading -> {
                         /*no-op*/
                     }

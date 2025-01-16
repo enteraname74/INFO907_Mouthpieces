@@ -1,14 +1,14 @@
 package com.github.enteraname74.mouthpieces.app.feature.mainpage.composable
 
-import androidx.compose.material3.*
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import com.github.enteraname74.mouthpieces.app.feature.mainpage.state.MainPageFilterState
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun MainPageSearchBar(filterState: MainPageFilterState, onUpdateSearch: (newSearch: String) -> Unit) {
     OutlinedTextField(
-        value = filterState.name,
+        value = filterState.search,
         onValueChange = onUpdateSearch,
         singleLine = true,
         label = {
@@ -17,10 +17,4 @@ fun MainPageSearchBar(filterState: MainPageFilterState, onUpdateSearch: (newSear
             )
         }
     )
-}
-
-@Preview
-@Composable
-fun MainPageSearchBarPreview() {
-    MainPageSearchBar(MainPageFilterState(""), {})
 }
